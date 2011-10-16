@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		*{margin:0;padding:0}
+		body{font-family:arial,sans-serif;}
+		html,body{width:100%;height:100%;overflow:hidden;}
+		#speech{
+			height:30px;width:30px;line-height:30px;font-size:40px;display:block;border:2px solid #333;
+			border-radius:40px;	text-indent:50px;outline:none;
+			position:absolute;top:295px;left:150px;
+		}
+		#main{
+			position:absolute;height:500px;width:400px;bottom:200%;right:2%;
+			background:url(google.png) center center no-repeat;
+			-webkit-transition:bottom 0.5s ease;
+		}
+		#ntcout{
+			width:100%;text-align:center;
+			z-index:100;
+			position:absolute;
+		}
+		#ntc{
+			background:#FFF1A8;padding:15px 10px 5px 10px; border-radius:5px;
+			-webkit-transition:opacity 0.5s ease;
+		}
+		#neta{
+			position:absolute;top:0;left:0;
+			width:100%;height:80%;						
+		}
+		#bg{
+			position:absolute;
+			top:-100px;left:-100px;right:-100px;bottom:-200px;
+			background:url(w.png);
+		}
+		#neta p{
+			position:absolute;
+			line-height:100%;
+			-webkit-transition:-webkit-transform 0.5s ease;
+			text-shadow:0 0 5px #000;	
+		}
+		#neta h2{opacity:0.6;text-shadow:0 0 5px #000};
+	</style>
+</head>
+<body>
+	<div id="neta">
+		<div id="bg"></div>
+		<div style="letter-spacing:-5px;">
+			<h2 style="font-size:120px;color:#879da9">\\Google娘调教计划//</h2>
+			<h2 style="margin-left:40px;display:block;font-size:28px;color:#677843;float:left">其实早就想这么做了呢</h2>
+			<h2 style="margin-left:20px;display:block;font-size:58px;color:#897a8c;float:left">把google娘抱回家把</h2>
+			<h2 style="margin-left:10px;display:block;font-size:30px;color:#3400ac;float:left">话说google娘不会是腹黑类型把。</h2>
+			<h2 style="margin-left:20px;display:block;font-size:60px;color:#ace565;float:left">话说胖次是什么颜色的呢？</h2>
+			<h2 style="margin-left:40px;display:block;font-size:30px;color:#67aed9;float:left">有蕾丝花边么？</h2>
+			<h2 style="margin-left:30px;display:block;font-size:60px;color:#3037ad;float:left">拿鼠标戳下google娘腰间的标志，说几句让人害羞的话试试。</h2>
+			<h2 style="margin-left:30px;display:block;font-size:80px;color:#103cad;float:left">google娘坏掉了www</h2>
+			<h2 style="margin-left:10px;display:block;font-size:40px;color:#02945a;float:left">Design&Code by zythum_朱一</h2>
+		</div>
+	</div>
+	<div id="main">
+		<input type="text" id="speech" x-webkit-speech lang="zh-CN" hidefocus="true">
+	</div>
+	<div id="ntcout"><span id="ntc">google娘正在准备开场语。请稍后...</span></div>
+	<script type="text/javascript" charset="utf-8">
+	var speechDOM = document.getElementById('speech'),
+		ntc = document.getElementById('ntc'),
+		main = document.getElementById('main'),
+		neta = document.getElementById('neta'),
+		tts = function(q,fn){
+			audio = new Audio();
+			var url = "gettts.php?q="+q;
+			speechDOM.value = '';
+			audio.src = url;
+			count = 0;
+			var loop = function(){
+				if(audio.readyState){
+					audio.play();
+					fn(q);
+				}
+				else{
+					setTimeout(loop,500);				
+				}
+			}
+			loop();
+		},
+		ready = function(fn){
+			var image = new Image();
+			image.onload = function(){
+				fn();
+			};
+			image.src = "google.png";
+		},
+		pushNeta = function(str){
+			var node = document.createElement('p'),
+				topOrBottom = Math.random()<0.5?'top':'bottom',
+				leftOrRight = Math.random()<0.5?'left':'right',
+				css = [
+				'',
+				'position:absolute',
+				topOrBottom+':'+(20+Math.random()*80)+'%',
+				leftOrRight+':'+(20+Math.random()*80)+'%',
+				'font-size:'+(30+Math.random()*30)+'px',
+				'color:rgba('+parseInt(Math.random()*255)+','+parseInt(Math.random()*255)+','+parseInt(Math.random()*255)+',0.5)',
+				'font-weight:'+(Math.random()<0.5?'bold':'normal'),
+				'-webkit-transform:rotate('+(Math.random()<0.5?'':'-')+(Math.random()*20)+'deg)',
+				''
+				];
+			node.style.cssText += css.join(';');
+			neta.appendChild(node);
+			node.innerHTML = str;
+		};
+	ready(function(){
+		tts("你好，我是google娘中国语。那么接下来请多多关照了。",function(){ntc.style.opacity = 0;});
+		main.style.bottom = '5%';
+	});
+	speech.onwebkitspeechchange = function(){
+		speechDOM.blur();
+		ntc.innerHTML = "google是个钝娘。反应比较慢，没有办法 =_=";
+		ntc.style.opacity = 1;
+		tts(speechDOM.value,function(q){
+			ntc.style.opacity = 0;
+			setTimeout(function(){ntc.innerHTML = "";},500);
+			pushNeta(q);
+		});
+	}
+	document.onmousemove = function(e){
+		var _mouse = {left:document.width/2-e.clientX,top:document.height/2-e.clientY};
+		neta.style.cssText+=';margin-top:'+_mouse.top/20+'px;margin-left:'+_mouse.left/10+'px;';
+		main.style.cssText+=';margin-bottom:'+_mouse.top/(0-50)+'px;margin-right:'+_mouse.left/(0-50)+'px;';
+
+	}	
+
+	</script>
+</body>
+</html>
